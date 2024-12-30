@@ -4,12 +4,12 @@
     "slug": "mindAid",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/do.png",
+    "icon": "./assets/xyz2.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/do.png",
+      "image": "./assets/xyz2.png",
       "resizeMode": "contain",
-      "backgroundColor": "#6B48FF"
+      "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -24,13 +24,14 @@
         "NSLocationAlwaysUsageDescription": "Your location is needed to send to emergency contacts in case of emergency",
         "NSAppleMusicUsageDescription": "Allow access to play meditation music from your library",
         "NSContactsUsageDescription": "Access to contacts is needed to send emergency messages",
-        "NSLocationAlwaysAndWhenInUseUsageDescription": "Your location is needed to send to emergency contacts in case of emergency"
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Your location is needed to send to emergency contacts in case of emergency",
+        "UIBackgroundModes": ["remote-notification"]
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/do.png",
-        "backgroundColor": "#6B48FF"
+        "foregroundImage": "./assets/xyz2.png",
+        "backgroundColor": "#ffffff"
       },
       "permissions": [
         "ACCESS_FINE_LOCATION",
@@ -43,7 +44,8 @@
         "READ_PHONE_STATE",
         "CAMERA",
         "android.permission.CAMERA",
-        "android.permission.RECORD_AUDIO"
+        "android.permission.RECORD_AUDIO",
+        "NOTIFICATIONS"
       ],
       "config": {
         "googleMaps": {
@@ -52,27 +54,25 @@
       },
       "package": "com.k214663.mindAid"
     },
-    "scheme": "your-scheme",
-    "web": {
-      "config": {
-        "spotify": {
-          "clientId": "your_client_id"
-        }
-      }
-    },
     "plugins": [
       [
         "expo-camera",
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to take photos for your profile and journal."
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/xyz2.png",
+          "color": "#ffffff"
+        }
       ]
     ],
     "extra": {
       "eas": {
-        "projectId": "19231e10-c5e6-4adf-8ab3-de4c302b78df"
+        "projectId": "d3ab936e-4150-4496-b441-259ce157eb38"
       }
-    },
-    "owner": "k214663"
+    }
   }
 }

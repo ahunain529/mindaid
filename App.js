@@ -25,9 +25,13 @@ import ProfileScreen from './screens/ProfileScreen';
 import EmergencyContactsScreen from './screens/EmergencyContactsScreen';
 import GameScreen from './screens/GameScreen';
 import DoctorsScreen from './screens/DoctorsScreen';
+import AppCreatorScreen from './screens/AppCreatorScreen';
+import MenstruationScreen from './screens/MenstruationScreen';
 
 import EmergencyService from './services/EmergencyService';
 import AnimatedSplash from './components/AnimatedSplash';
+import { setupNotifications, showMotivationalQuote } from './services/NotificationService';
+import * as Notifications from 'expo-notifications';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -41,6 +45,35 @@ const theme = {
     text: '#2D3436',       // Dark gray
   }
 };
+
+function ProfileStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen 
+        name="ProfileMain" 
+        component={ProfileScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: theme.colors.primary,
+          },
+          headerTintColor: '#fff',
+          title: 'Profile'
+        }}
+      />
+      <Stack.Screen 
+        name="AppCreator" 
+        component={AppCreatorScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: theme.colors.primary,
+          },
+          headerTintColor: '#fff',
+          title: 'About'
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 function TabNavigator() {
   return (
@@ -132,12 +165,27 @@ function TabNavigator() {
       />
       <Tab.Screen 
         name="Profile" 
-        component={ProfileScreen}
+        component={ProfileStack}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => {
+            const iconName = focused ? 'person' : 'person-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
+          }
+        }}
+      />
+      <Tab.Screen 
+        name="Period" 
+        component={MenstruationScreen}
         options={{
           headerStyle: {
             backgroundColor: theme.colors.primary,
           },
           headerTintColor: '#fff',
+          tabBarIcon: ({ focused, color, size }) => {
+            const iconName = focused ? 'calendar' : 'calendar-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
+          }
         }}
       />
       <Tab.Screen 
@@ -166,6 +214,17 @@ export default function App() {
     });
 
     return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    const initializeNotifications = async () => {
+      await setupNotifications();
+      await showMotivationalQuote();
+      // Optional: Schedule daily quotes
+      // await scheduleQuoteNotification(9, 0); // Will show at 9:00 AM daily
+    };
+
+    initializeNotifications();
   }, []);
 
   if (loading) {

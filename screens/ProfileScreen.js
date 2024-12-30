@@ -18,6 +18,7 @@ import { signOut, updateEmail, updatePassword } from 'firebase/auth';
 import CameraModal from '../components/CameraModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BottomSheet } from 'react-native-btr';
+import { useNavigation } from '@react-navigation/native';
 
 const theme = {
   colors: {
@@ -30,8 +31,9 @@ const theme = {
 };
 
 export default function ProfileScreen() {
+  const navigation = useNavigation();
   const [userData, setUserData] = useState(null);
-  const [stats, setStats] = useState({ sessions: 0, hours: 0, entries: 0 });
+  const [stats, setStats] = useState({ entries: 0 });
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editField, setEditField] = useState(null);
   const [editValue, setEditValue] = useState('');
@@ -79,23 +81,8 @@ export default function ProfileScreen() {
     const entriesSnapshot = await get(entriesRef);
     const entriesCount = entriesSnapshot.exists() ? Object.keys(entriesSnapshot.val()).length : 0;
 
-    // Get meditation sessions count (assuming you're tracking them)
-    const sessionsRef = ref(database, `meditation_sessions/${userId}`);
-    const sessionsSnapshot = await get(sessionsRef);
-    const sessionsCount = sessionsSnapshot.exists() ? Object.keys(sessionsSnapshot.val()).length : 0;
-
-    // Calculate total meditation hours
-    let totalHours = 0;
-    if (sessionsSnapshot.exists()) {
-      Object.values(sessionsSnapshot.val()).forEach(session => {
-        totalHours += (session.duration || 0) / 60; // Convert minutes to hours
-      });
-    }
-
     setStats({
-      sessions: sessionsCount,
-      hours: Math.round(totalHours),
-      entries: entriesCount,
+      entries: entriesCount
     });
   };
 
@@ -301,16 +288,8 @@ export default function ProfileScreen() {
 
       <View style={styles.statsContainer}>
         <View style={styles.statItem}>
-          <Text style={styles.statNumber}>{stats.sessions}</Text>
-          <Text style={styles.statLabel}>Sessions</Text>
-        </View>
-        <View style={styles.statItem}>
-          <Text style={styles.statNumber}>{stats.hours}</Text>
-          <Text style={styles.statLabel}>Hours</Text>
-        </View>
-        <View style={styles.statItem}>
           <Text style={styles.statNumber}>{stats.entries}</Text>
-          <Text style={styles.statLabel}>Entries</Text>
+          <Text style={styles.statLabel}>Journal Entries</Text>
         </View>
       </View>
 
@@ -340,6 +319,15 @@ export default function ProfileScreen() {
         >
           <Ionicons name="lock-closed-outline" size={24} color={theme.colors.text} />
           <Text style={styles.menuText}>Change Password</Text>
+          <Ionicons name="chevron-forward" size={24} color="gray" />
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.menuItem}
+          onPress={() => navigation.navigate('AppCreator')}
+        >
+          <Ionicons name="information-circle-outline" size={24} color={theme.colors.text} />
+          <Text style={styles.menuText}>About App</Text>
           <Ionicons name="chevron-forward" size={24} color="gray" />
         </TouchableOpacity>
       </View>
@@ -469,8 +457,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
     padding: 20,
     backgroundColor: 'white',
     borderRadius: 15,
@@ -480,6 +466,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
+    alignItems: 'center',
   },
   statItem: {
     alignItems: 'center',
