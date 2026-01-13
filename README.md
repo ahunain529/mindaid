@@ -9,17 +9,16 @@ A comprehensive React Native mobile application designed to support mental healt
 
 ## 📋 Table of Contents
 
-- [Features]
-- [Technologies]
-- [Screenshots](#screenshots)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Project Structure](#project-structure)
-- [Permissions](#permissions)
-- [Development](#development)
-- [Build & Deployment](#build--deployment)
-- [Contributing](#contributing)
-- [License](#license)
+- Features
+- Technologies
+- Installation
+- Configuration
+- Project Structure
+- Permissions
+- Development
+- Build & Deployment
+- Contributing
+- License
 
 ## ✨ Features
 
