@@ -331,7 +331,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- Your Name - [GitHub Profile](https://github.com/ahunain529)
+- ALI HUNAIN - [GitHub Profile](https://github.com/ahunain529)
 
 ## 🙏 Acknowledgments
 
@@ -342,7 +342,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-For support, email support@mindaid.com or open an issue in the GitHub repository.
+For support, email ahunain529@gmail.com or open an issue in the GitHub repository.
 
 ---
 
